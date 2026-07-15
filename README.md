@@ -282,4 +282,3 @@ If this framework or its ideas help your research, a citation is much appreciate
 Built on <b>AgentScope</b> + <b>DashScope/Qwen</b> · School of Computer Science, <b>NJUPT</b> · Nanjing, China
 
 </div>
-# defending-the-hidden
