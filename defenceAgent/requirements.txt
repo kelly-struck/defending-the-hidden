@@ -1,0 +1,9 @@
+agentscope>=1.0.0
+pydantic>=2.5
+python-dotenv>=1.0
+Pillow>=10.0
+dashscope>=1.19.1
+pyarrow>=17.0
+pandas>=2.2
+tqdm>=4.66
+gradio_client>=0.11.0
