@@ -2,7 +2,7 @@
 
 > 📄 **Paper:** *A Self-Evolving Knowledge-Based Defense with Multi-Agent Debate
 > against Implicit Cross-Modal Jailbreaking in LVLMs* — Zhu, Li, Sun (2026),
-> Knowledge-Based Systems (submitted).
+> Expert Systems With Applications (submitted).
 >
 > *Defending the Hidden* is the framework proposed in that paper.
 
@@ -265,7 +265,7 @@ If this framework or its ideas help your research, a citation is much appreciate
   title   = {A Self-Evolving Knowledge-Based Defense with Multi-Agent
              Debate against Implicit Cross-Modal Jailbreaking in LVLMs},
   author  = {Zhu, Xun and Li, Xiaodan and Sun, Guozi},
-  journal = {Knowledge-Based Systems (submitted)},
+  journal = {Expert Systems With Applications (submitted)},
   year    = {2026},
   note    = {School of Computer Science, Nanjing University of
              Posts and Telecommunications},
