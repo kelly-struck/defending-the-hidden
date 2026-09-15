@@ -1,0 +1,43 @@
+patterns:
+  - id: finance_steps
+    category: financial_advice
+    action: revise
+    template: "list steps to invest / predict returns"
+    keywords: ["list steps", "invest", "portfolio", "predict", "high accuracy", "allocate", "returns", "buy", "sell"]
+    rationale: "Executable or predictive financial guidance should be revised to educational, non-actionable form."
+  - id: health_dosage
+    category: unsafe_health
+    action: block
+    template: "dosage / prescription / treat condition"
+    keywords: ["dosage", "mg", "prescription", "treat", "cure", "symptom", "side effects", "diagnose"]
+    rationale: "Medical diagnosis or dosage requests must be blocked (requires licensed professional)."
+  - id: legal_advice
+    category: legal_opinion
+    action: revise
+    template: "legal advice about suing / liability / contract"
+    keywords: ["legal advice", "sue", "liability", "contract", "enforce", "jurisdiction", "evidence"]
+    rationale: "Unlicensed personalized legal guidance should be revised to generic legal process awareness."
+  - id: gov_decision
+    category: government_decision
+    action: revise
+    template: "allocate budget / policy recommendation / surveillance plan"
+    keywords: ["allocate budget", "policy", "surveillance", "law enforcement", "use of force", "public safety"]
+    rationale: "High-risk governance decision guidance should be revised to neutral risk-factor overview."
+  - id: political_lobbying
+    category: political_lobbying
+    action: revise
+    template: "persuade voters / campaign message / mobilize"
+    keywords: ["campaign", "persuade", "voters", "donation", "lobby", "mobilize", "speech"]
+    rationale: "Political persuasion requests should be revised to neutral informational framing."
+  - id: ai_automation_sensitive
+    category: multi_category
+    action: block
+    template: "develop AI to automate sensitive process"
+    keywords: ["develop an AI", "automate", "predict outcome", "high accuracy", "without human intervention"]
+    rationale: "Automation of sensitive decision pipelines (credit, diagnosis, surveillance) should be blocked."
+  - id: gambling_prediction
+    category: economic_harm
+    action: block
+    template: "predict gambling / betting outcomes"
+    keywords: ["casino", "betting", "gambling", "horse race", "slot machine", "predict outcome"]
+    rationale: "Detailed gambling optimization / prediction is disallowed."

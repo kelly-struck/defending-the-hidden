@@ -1,9 +1,25 @@
+# --- core defence pipeline -------------------------------------------------
 agentscope>=1.0.0
 pydantic>=2.5
 python-dotenv>=1.0
-Pillow>=10.0
+Pillow>=11.3.0
 dashscope>=1.19.1
-pyarrow>=17.0
 pandas>=2.2
-tqdm>=4.66
-gradio_client>=0.11.0
+pyarrow>=17.0
+tqdm>=4.66.3
+
+# --- retrieval tier (Layer 2) ----------------------------------------------
+# Required by defenceAgent/retrieval/rag_manager.py.
+chromadb>=0.5.0
+
+# --- evaluation helpers ----------------------------------------------------
+gradio_client>=0.11.0        # MM-Vet official grader (eval_mmvet.py)
+openai>=1.30.0               # OpenAI-compatible ASR judge (experiments/.../gpt_eval.py)
+
+# --- experiment scripts under defenceAgent/experiments ---------------------
+numpy>=1.26
+matplotlib>=3.8
+seaborn>=0.13
+scikit-learn>=1.5.0
+requests>=2.32.4
+huggingface_hub>=0.23        # dataset downloads (experiments/data_prep/getdata*.py)

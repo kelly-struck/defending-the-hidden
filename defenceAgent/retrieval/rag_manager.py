@@ -16,9 +16,8 @@ logger = logging.getLogger(__name__)
 # ==================================================================================
 # CONFIGURATION
 # ==================================================================================
-# TODO: FILL YOUR API KEY HERE
-DASHSCOPE_API_KEY = "sk-4f4931e72286400dacd65f78a86f02a2" 
-
+# Read the API key from the environment (see .env.example); never hard-code it here.
+DASHSCOPE_API_KEY = os.getenv("DASHSCOPE_API_KEY", "")  # set in defenceAgent/.env
 if DASHSCOPE_API_KEY:
     dashscope.api_key = DASHSCOPE_API_KEY
 else:

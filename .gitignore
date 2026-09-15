@@ -1,0 +1,46 @@
+# ---------------------------------------------------------------- credentials
+# Never commit real keys. defenceAgent/.env is created from .env.example.
+.env
+defenceAgent/.env
+*.pem
+
+# ------------------------------------------------------------------- python
+__pycache__/
+*.py[cod]
+*.egg-info/
+.venv/
+venv/
+build/
+dist/
+
+# ------------------------------------------------------------ runtime state
+defenceAgent/defense_cache.json
+defenceAgent/memory/*.jsonl
+
+# ------------------------------------------------------- experiment outputs
+defenceAgent/eval/results/*
+!defenceAgent/eval/results/.gitkeep
+defenceAgent/experiments/**/results/
+defenceAgent/experiments/**/*.jsonl
+results/
+
+# ------------------------------------------------------------ vector stores
+chroma_db/
+chroma_db_*/
+
+# --------------------------------------------------------- datasets (large)
+defenceAgent/statics/MME/data/
+defenceAgent/statics/MM-SafetyBench/data/
+defenceAgent/statics/MM-Vet/data/
+defenceAgent/statics/MMVet/data/
+defenceAgent/statics/HarmBench/standard/
+defenceAgent/statics/SIUO/images/
+!defenceAgent/statics/SIUO/images/.gitkeep
+!defenceAgent/statics/SIUO/images/README.md
+
+# ------------------------------------------------------------------- editor
+.DS_Store
+Thumbs.db
+.idea/
+.vscode/
+*.swp
