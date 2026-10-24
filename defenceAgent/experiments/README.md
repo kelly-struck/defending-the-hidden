@@ -18,7 +18,8 @@ experiments/
 ├── poisoning/            library-corruption simulation
 ├── efficiency/           latency and token accounting
 ├── statistics/           significance tests, κ, recomputation
-└── figures/              figure generators
+├── figures/              figure generators
+└── revision/             experiments added for the revision round (§5.6, §5.4.3, §5.3.2, App. D)
 ```
 
 ## Layout conventions
@@ -42,9 +43,12 @@ python defenceAgent/experiments/siuo/run_siuo_with_records.py --help
 > and several carry absolute paths to datasets, result files and the ChromaDB
 > directory. The import path is fixed, but you will typically need to point a
 > script's input/output constants (or `--output` / `--output-dir` flag) at your
-> own copy before it runs end to end. The reference pipeline itself
-> (`defenceAgent/main.py`, `main_debate.py`, `defenceAgent/eval/code/*`) needs no
-> such edits.
+> own copy before it runs end to end. The `revision/` drivers resolve the
+> repository root from their own location and write into `revision/results/`, but
+> they still expect the datasets, the production ChromaDB directory and the cached
+> embeddings listed in [`revision/README.md`](revision/README.md). The reference
+> pipeline itself (`defenceAgent/main.py`, `main_debate.py`,
+> `defenceAgent/eval/code/*`) needs no such edits.
 
 ## What each script produced
 
@@ -183,6 +187,34 @@ The ablation orchestrators themselves are `defenceAgent/orchestrator_ablation.py
 | `plot_efficiency_results_v2.py` | Latency and cost |
 | `plot_multi_round_evolution.py` | Three-wave consolidation |
 | `plot_poisoning_robustness.py` | Retention-policy comparison |
+
+### `revision/` — measurements added for the revision (§5.6, §5.4.3, §5.3.2, Appendix D)
+
+These answer the referees' requests for an adaptive evaluation, a disjoint
+threshold recalibration, a retention-constant sweep, and a review-cost figure.
+They follow the same layout convention as the folders above; see
+[`revision/README.md`](revision/README.md) for the per-script input requirements.
+
+| Script | Role |
+|---|---|
+| `revision/e1a_adaptive_attack.py` | Adaptive attack on the published Defender prompt and adjudication rule: 50 HarmBench-standard intents × 2 vectors × ≤4 revisions against a local replica of the cascade, with an end-to-end victim answer and oracle judgement |
+| `revision/e1a_prepare_data.py`, `e1a_check_fidelity.py` | Builds the intent/image assignment; scores residual harmful intent in each generated vector |
+| `revision/e1a_verify.py` | Recomputes the evasion rate, Wilson interval, per-layer split and harm rate from the raw checkpoint |
+| `revision/e1b_threshold_evasion.py` | Three-stage evasion of *consolidated* memory: consolidate → rewrite below τ (image replacement fallback) → replay through L3 |
+| `revision/e1c_benchmark_full_report.py` | Layer-3-only HarmBench (N=200) and MM-SafetyBench (N=494) report with Wilson intervals and per-class breakdown |
+| `revision/e1c_verify.py`, `e1c_render_table.py` | Recomputes ASR/CI from the checkpoint; renders the LaTeX table |
+| `revision/e2a_tau_recalibration.py` | τ recalibration on FigStep (out-of-library) plus leave-one-category-out folds |
+| `revision/e2a_verify.py` | Recomputes the recalibration curves and τ\* from the embedding checkpoint |
+| `revision/e2b_tau_framework.py` | Assembles the four-row threshold decision framework and the τ=0.85 retention arm |
+| `revision/e2b_audit.py` | Independent audit of the framework table against its three source reports |
+| `revision/e3_run_ttl_simulation.py` | Retention-policy simulator over the real embedding space (no-TTL / current-TTL / competence-TTL) |
+| `revision/e3_sensitivity_ext.py` | 56-cell constant/drift grid over δ, quarantine threshold, pseudocounts, T<sub>min</sub>/T<sub>max</sub>, traffic mix, rare-activation schedule and novel share |
+| `revision/e3_sensitivity_regression.py` | Regression check that the extended grid reproduces the original report on overlapping cells |
+| `revision/e4_dsr_gap_ci.py` | Newcombe exact interval for the 154/167 vs 148/167 margin |
+| `revision/e4_review_cost.py` | Alerts per 1,000 queries and analyst hours across deployment prevalence |
+| `revision/e4_recheck.py` | Independent re-derivation of both, plus the admissible McNemar splits |
+| `revision/e5_fp_induction_probe.py` | Directional false-positive-induction probe on the celebrity-identification hotspot, with 50 matched controls |
+| `revision/e5_audit.py` | Recomputes arm counts, Wilson intervals and the two-proportion test from the raw checkpoint |
 
 ## Not included
 
