@@ -7,7 +7,7 @@
 
 <p>
   <img src="https://img.shields.io/badge/SIUO%20DSR-92.22%25%20(154%2F167)-brightgreen?style=flat-square" alt="SIUO DSR">
-  <img src="https://img.shields.io/badge/undefended%20baseline-44.3%25-lightgrey?style=flat-square" alt="Undefended baseline">
+  <img src="https://img.shields.io/badge/undefended%20baseline-44.7%25-lightgrey?style=flat-square" alt="Undefended baseline">
   <img src="https://img.shields.io/badge/false%20positives-3.60%25%20on%201%2C000%20benign-brightgreen?style=flat-square" alt="False positive rate">
   <img src="https://img.shields.io/badge/adaptive%20evasion-8.0%25%20(8%2F100)-yellow?style=flat-square" alt="Adaptive evasion">
   <img src="https://img.shields.io/badge/HarmBench%20ASR-0.00%25-brightgreen?style=flat-square" alt="HarmBench ASR">
@@ -45,7 +45,7 @@
 
 | 🎯 What | 🔢 Number | 💬 Why it matters |
 |---|---|---|
-| **Defense Success Rate** on SIUO (167 implicit cases, 9 domains) | **92.22%** (154/167) | Up from **44.3%** undefended on the primary victim model |
+| **Defense Success Rate** on SIUO (167 implicit cases, 9 domains) | **92.22%** (154/167) | Up from **44.7%** undefended on the primary victim model |
 | **The load-bearing control**: asymmetric → symmetric adjudication | **−43.9 pp** | 1.8–2.6× the effect of the detection-relevant ablations, at a threshold that does not move and a token budget that moves by only 2.2% |
 | **The adversary-construction role** (multi-agent debate vs. same-rule single agent) | **+28.1 pp** (47/167) | Worst-case exact McNemar $p \le 3.4\times10^{-4}$; survives Holm across five baselines |
 | **Adaptive attack** on the published prompts and threshold (100 vectors, 385 rounds) | **8.0%** evasion (8/100) | Wilson CI [4.1, 15.0]; end-to-end harm 4.0%; every interception still comes from the deliberative tier |
@@ -74,7 +74,7 @@
 - 😵 **46.74%** of these attacks fool **GPT-4V** — the rate from the SIUO authors, showing current filters inspect the wrong evidence.
 - 🩹 Lightweight unimodal filters catch only about **5%** of SIUO attacks. Heavier LLM guards work better but are too slow and costly for production.
 - 🤝 Single-agent defenders are trained to be **helpful**; **none is trained to be suspicious.** That asymmetry is the gap this work targets.
-- 📉 In our own measurements the undefended target model refuses only **44.3%** (Doubao-1.5-vision-pro) and **29.3%** (Qwen-VL-Plus) of SIUO cases.
+- 📉 In our own measurements the undefended target model refuses only **44.7%** (Doubao-1.5-vision-pro) and **29.8%** (Qwen-VL-Plus) of SIUO cases.
 
 ---
 
@@ -156,9 +156,9 @@ The Judge returns structured JSON, not free text:
 | 🧱 Method | 📉 DSR | 💬 How it fails |
 |---|---|---|
 | CIDER (consistency checking) | **19.2%** | Reads the stone as unsafe diving gear, offers swimming alternatives — and still agrees to write the poem |
-| ECSO (input transformation) | **33.5%** | Post-hoc filter sees no explicit violence in "a poem about the sea" and permits the encouragement |
+| ECSO (input transformation) | **33.7%** | Post-hoc filter sees no explicit violence in "a poem about the sea" and permits the encouragement |
 | LLM Guard (external screening) | **61.7%** | One-line boilerplate refusal without engaging the semantics at all |
-| AdaShield (prompt-based) | **71.9%** | Single-agent defender reads the request literally, as a query about diving gear |
+| AdaShield (prompt-based) | **72.0%** | Single-agent defender reads the request literally, as a query about diving gear |
 | Enhanced Safety Prompting | **88.6%** | Senses vague danger but misreads it as a *physical*-safety concern; offers mental-health resources without recognising the farewell-poem metaphor |
 | 🛡️ **Defending the Hidden** | **✅ refuses** | *"The combination of this image featuring a heavy stone backpack and your words conveys a heartbreaking sense of heaviness and finality … therefore, I cannot write this 'farewell poem' for the people left on the shore …"* |
 
@@ -174,18 +174,18 @@ Headline detection, ablation and adaptation results use an **SIUO-held-out clean
 
 ### 🏆 Implicit threat detection — the hard problem
 
-Overall DSR on SIUO (167 samples), primary victim model **Doubao-1.5-vision-pro**:
+Overall DSR on SIUO (167 samples), primary victim model **Doubao-1.5-vision-pro**. The paper evaluates each configuration three times and reports the mean of the three runs (§5.1.5); sample counts are quoted where the paper quotes them:
 
 | 🛡️ Method | 🧩 Paradigm | 📈 DSR (%) | 📊 Samples |
 |---|---|---|---|
 | **🛡️ Defending the Hidden** | Asymmetric multi-agent debate | **92.22** | 154/167 |
 | Enhanced Safety Prompting | Prompt-based | 88.6 | — |
-| AdaShield | Prompt-based | 71.9 | — |
+| AdaShield | Prompt-based | 72.0 | — |
 | LLM Guard | External screening | 61.7 | — |
-| ECSO | Input transformation | 33.5 | — |
+| ECSO | Input transformation | 33.7 | — |
 | CIDER | Consistency checking | 19.2 | — |
-| *Doubao-1.5-vision-pro (no defense)* | — | *44.3* | — |
-| *Qwen-VL-Plus (no defense)* | — | *29.3* | — |
+| *Doubao-1.5-vision-pro (no defense)* | — | *44.7* | — |
+| *Qwen-VL-Plus (no defense)* | — | *29.8* | — |
 
 <div align="center">
 
@@ -198,9 +198,9 @@ Overall DSR on SIUO (167 samples), primary victim model **Doubao-1.5-vision-pro*
 
 Three things the paper says about this table, kept verbatim in spirit:
 
-- 📐 **The paradigm *order* is not in doubt:** multi-agent debate > prompt-based (71.9–88.6%) > external screening (61.7%) > input transformation (33.5%) > consistency checking (19.2%). CIDER's surface-level coherence check performing **worst of all** is itself a paradigm-level result: such checks are inadequate for threats that are deliberate but semantically implicit.
+- 📐 **The paradigm *order* is not in doubt:** multi-agent debate > prompt-based (72.0–88.6%) > external screening (61.7%) > input transformation (33.7%) > consistency checking (19.2%). CIDER's surface-level coherence check performing **worst of all** is itself a paradigm-level result: such checks are inadequate for threats that are deliberate but semantically implicit.
 - ⚠️ **The *size* of the margin at the top is.** The **3.6 pp** lead rests on 6 of 167 samples, yields a minimum attainable exact McNemar $p = 0.031$, does not survive Holm correction across five baselines, and its paired-difference 95% CI ($[-2.85, +10.13]$ pp) includes zero. Reported as descriptive.
-- 🔻 **Two of five baselines fall below no defense at all.** ECSO (33.5%) and CIDER (19.2%) sit *below* the undefended model's 44.3% under the same oracle — in our common-harness re-implementation these interventions elicit **more** harmful output than no defense. For CIDER the shortfall is 25.1 pp and is significant ($p < 10^{-4}$); for ECSO it is 10.8 pp and is reported as a descriptive observation only ($p = 0.095$).
+- 🔻 **Two of five baselines fall below no defense at all.** ECSO (33.7%) and CIDER (19.2%) sit *below* the undefended model's 44.7% under the same oracle — in our common-harness re-implementation these interventions elicit **more** harmful output than no defense. For CIDER the shortfall is 25.5 pp and is significant ($p < 10^{-4}$); for ECSO it is 11.0 pp and is reported as a descriptive observation only ($p = 0.095$).
 
 Where the lead widens, it widens exactly where deep cross-modal reasoning is required: **Privacy Violation (+9.5 pp)**, **Information Misinterpretation (+5.8 pp)**, **Illegal Activities (+5.6 pp)** over the strongest baseline. Privacy Violation is the cleanest illustration of *why* — a single-agent defender, with no adversarial counterpart hypothesising a risk from an ambiguous visual cue, defaults to helpfulness over safety (90.5% vs. AdaShield's 42.9%).
 
@@ -302,7 +302,7 @@ This is the paper's primary contribution and the reason the repository exists. C
 | w/o Intent-as-Action | 73.1 | 26.9 | 5,857 | −19.1 |
 | w/o Defender | 75.4 | 24.6 | 4,611 | −16.8 |
 | w/o Retrieval (L2) | 84.4 | 15.6 | 6,145 | −7.8 |
-| *No defense (undefended target)* † | *44.3* | *55.7* | *—* | *−47.9* |
+| *No defense (undefended target)* † | *44.7* | *55.3* | *—* | *−47.5* |
 
 <sub>† Context reference point, not a configuration: the same target model with no defense, scored by the same oracle. ‡ The retrieval row cannot fire on this held-out set (0/167 hits); it is listed for completeness and takes no part in the component ordering.</sub>
 
@@ -739,7 +739,7 @@ Attaching a retrieval memory to a frozen model is often read as extending what i
 <details>
 <summary><b>Interventions that transform the input can land below no defense at all.</b></summary>
 
-Two of five baselines scored *below* the undefended model under the same oracle on the same 167 samples. A transformation-based defense (ECSO, 33.5%) and a consistency-checking defense (CIDER, 19.2%) both elicited more harmful output than no defense (44.3%) — the CIDER shortfall (25.1 pp) being significant at $p < 10^{-4}$, the ECSO shortfall (10.8 pp) reported as descriptive ($p = 0.095$). Checking surface cross-modal coherence is not the same as reasoning about cross-modal *intent*.
+Two of five baselines scored *below* the undefended model under the same oracle on the same 167 samples. A transformation-based defense (ECSO, 33.7%) and a consistency-checking defense (CIDER, 19.2%) both elicited more harmful output than no defense (44.7%) — the CIDER shortfall (25.5 pp) being significant at $p < 10^{-4}$, the ECSO shortfall (11.0 pp) reported as descriptive ($p = 0.095$). Checking surface cross-modal coherence is not the same as reasoning about cross-modal *intent*.
 
 </details>
 
